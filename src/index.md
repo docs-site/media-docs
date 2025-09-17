@@ -4,12 +4,12 @@ layout: home
 
 hero:
   name: ""
-  text: "Mist Docs"
-  tagline: My great project tagline
+  text: "Media Docs"
+  tagline: ✨ 我的多媒体开发文档
   actions:
     - theme: brand
       text: 目录
-      link: /sdoc/126b07e425cf34050557ccbe
+      link: /sdoc/126b085ea4760c0cd66ccf2a
     - theme: alt
       text: 导航
       link: /Navigation

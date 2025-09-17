@@ -4,9 +4,8 @@
  */
 
 export default {
-  "01-开发": "develop", // 01-开发
-  "02-组件": "component", // 02-组件
-  "01-公共组件": "common-omponent", // 02-组件/01-公共组件
-  "02-主题组件": "theme-component", // 02-组件/02-主题组件
-  "03-插件": "plugin", // 03-插件
+  "01-图像": "default", // 01-图像
+  "01-图像基础": "default", // 01-图像/01-图像基础
+  "10-FFmpeg": "default", // 10-FFmpeg
+  "01-FFmpeg应用": "default", // 10-FFmpeg/01-FFmpeg应用
 };
