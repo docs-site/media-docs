@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg viewBox="0 0 960 600" width="960" height="600" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="clock-chain-title clock-chain-desc" id="clock-chain-root">
+        <title id="clock-chain-title">三类时钟与 MIPI 数据通路</title>
+        <desc id="clock-chain-desc">时钟链路示意：主控送出的 xvclk 24 MHz 进入 OV8858 内部 PLL，倍频后分出头像素时钟 pixel_rate 144 Mpixel/s 与 MIPI 时钟 link_freq 360 MHz，后者经 2 条数据 lane（DDR 双沿，720 Mbps/lane）送到 RK3568 的 D-PHY 与 CSI2RX。</desc>
+        <defs>
+      <style>@import url('https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&amp;family=Geist:wght@400;500;600&amp;family=Geist+Mono:wght@400;500;600&amp;family=Noto+Serif:ital@0;1&amp;family=Noto+Sans+KR:wght@400;500;600&amp;family=Noto+Serif+KR:wght@400&amp;family=Noto+Sans+TC:wght@400;500;600&amp;family=Noto+Serif+TC:wght@400&amp;display=swap');
+      #clock-chain-root { --color-paper:   #f5f5f5;
+      --color-ink:     #2d3142;
+      --color-muted:   #4f5d75;
+      --color-accent:  #bf4520;
+      --font-sans:     'Geist', 'PingFang SC', 'Noto Sans SC', 'Microsoft YaHei', system-ui, sans-serif;
+      --font-serif:    'Instrument Serif', 'Noto Serif SC', 'Songti SC', 'SimSun', serif;
+      --font-mono:     'Geist Mono', ui-monospace, monospace; }
+      #clock-chain-root { font-family: var(--font-sans); color: var(--color-ink); }
+      #clock-chain-root .diagram-container { width: 100%; overflow-x: auto; }
+      #clock-chain-root .diagram-container { overflow-x: visible; }</style>
+          <marker id="clock-chain-arrow" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto"><polygon points="0 0, 8 3, 0 6" fill="#4f5d75"/></marker>
+          <marker id="clock-chain-arrow-accent" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto"><polygon points="0 0, 8 3, 0 6" fill="#bf4520"/></marker>
+          <marker id="clock-chain-arrow-link" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto"><polygon points="0 0, 8 3, 0 6" fill="#2e5aa8"/></marker>
+        </defs>
+
+        <rect width="100%" height="100%" fill="#f5f5f5"/>
+
+        <!-- 连线先画，压在节点之下 -->
+        <line x1="612" y1="104" x2="612" y2="144" stroke="#4f5d75" stroke-width="1.2" marker-end="url(#clock-chain-arrow)"/>
+        <path d="M 492,176 H 332 Q 324,176 324,184 V 248" fill="none" stroke="#4f5d75" stroke-width="1.2" marker-end="url(#clock-chain-arrow)"/>
+        <line x1="612" y1="208" x2="612" y2="248" stroke="#4f5d75" stroke-width="1.2" marker-end="url(#clock-chain-arrow)"/>
+        <line x1="612" y1="312" x2="612" y2="352" stroke="#4f5d75" stroke-width="1.2" marker-end="url(#clock-chain-arrow)"/>
+        <line x1="612" y1="416" x2="612" y2="456" stroke="#4f5d75" stroke-width="1.2" marker-end="url(#clock-chain-arrow)"/>
+
+        <!-- 外部输入时钟 xvclk（三类时钟之一） -->
+        <rect x="492" y="40" width="240" height="64" rx="6" fill="#f5f5f5"/>
+        <rect x="492" y="40" width="240" height="64" rx="6" fill="#2d3142" fill-opacity="0.05" stroke="#4f5d75" stroke-width="1"/>
+        <text x="612" y="70" fill="#2d3142" font-size="12" font-weight="600" font-family="'Geist', 'PingFang SC', 'Noto Sans SC', 'Microsoft YaHei', sans-serif" text-anchor="middle">外部输入时钟</text>
+        <text x="612" y="88" fill="#4f5d75" font-size="9" font-family="'Geist Mono', ui-monospace, monospace" text-anchor="middle">xvclk · 24 MHz</text>
+
+        <!-- Sensor 内部 PLL（焦点） -->
+        <rect x="492" y="144" width="240" height="64" rx="6" fill="#f5f5f5"/>
+        <rect x="492" y="144" width="240" height="64" rx="6" fill="#bf4520" fill-opacity="0.08" stroke="#bf4520" stroke-width="1"/>
+        <text x="612" y="174" fill="#2d3142" font-size="12" font-weight="600" font-family="'Geist', 'PingFang SC', 'Noto Sans SC', 'Microsoft YaHei', sans-serif" text-anchor="middle">Sensor 内部 PLL</text>
+        <text x="612" y="192" fill="#4f5d75" font-size="9" font-family="'Geist Mono', ui-monospace, monospace" text-anchor="middle">ref 24 MHz → VCO</text>
+
+        <!-- 像素时钟 pixel_rate -->
+        <rect x="204" y="248" width="240" height="64" rx="6" fill="#f5f5f5"/>
+        <rect x="204" y="248" width="240" height="64" rx="6" fill="#2d3142" fill-opacity="0.05" stroke="#4f5d75" stroke-width="1"/>
+        <text x="324" y="278" fill="#2d3142" font-size="12" font-weight="600" font-family="'Geist', 'PingFang SC', 'Noto Sans SC', 'Microsoft YaHei', sans-serif" text-anchor="middle">像素时钟</text>
+        <text x="324" y="296" fill="#4f5d75" font-size="9" font-family="'Geist Mono', ui-monospace, monospace" text-anchor="middle">pixel_rate 144 Mpixel/s</text>
+
+        <!-- MIPI 时钟 link_freq -->
+        <rect x="492" y="248" width="240" height="64" rx="6" fill="#f5f5f5"/>
+        <rect x="492" y="248" width="240" height="64" rx="6" fill="#2d3142" fill-opacity="0.05" stroke="#4f5d75" stroke-width="1"/>
+        <text x="612" y="278" fill="#2d3142" font-size="12" font-weight="600" font-family="'Geist', 'PingFang SC', 'Noto Sans SC', 'Microsoft YaHei', sans-serif" text-anchor="middle">MIPI 时钟</text>
+        <text x="612" y="296" fill="#4f5d75" font-size="9" font-family="'Geist Mono', ui-monospace, monospace" text-anchor="middle">link_freq 360 MHz</text>
+
+        <!-- 数据 lane ×2 -->
+        <rect x="492" y="352" width="240" height="64" rx="6" fill="#f5f5f5"/>
+        <rect x="492" y="352" width="240" height="64" rx="6" fill="#ffffff" stroke="#2d3142" stroke-width="1"/>
+        <text x="612" y="382" fill="#2d3142" font-size="12" font-weight="600" font-family="'Geist', 'PingFang SC', 'Noto Sans SC', 'Microsoft YaHei', sans-serif" text-anchor="middle">数据 lane ×2</text>
+        <text x="612" y="400" fill="#4f5d75" font-size="9" font-family="'Geist Mono', ui-monospace, monospace" text-anchor="middle">720 Mbps/lane · DDR ×2</text>
+
+        <!-- SoC 侧 D-PHY 与 CSI2RX -->
+        <rect x="472" y="456" width="280" height="64" rx="6" fill="#f5f5f5"/>
+        <rect x="472" y="456" width="280" height="64" rx="6" fill="#ffffff" stroke="#2d3142" stroke-width="1"/>
+        <text x="612" y="486" fill="#2d3142" font-size="12" font-weight="600" font-family="'Geist', 'PingFang SC', 'Noto Sans SC', 'Microsoft YaHei', sans-serif" text-anchor="middle">RK3568 D-PHY + CSI2RX</text>
+        <text x="612" y="504" fill="#4f5d75" font-size="9" font-family="'Geist Mono', ui-monospace, monospace" text-anchor="middle">csi2_dphy0 · 2 lane</text>
+
+        <!-- 图例（底部横条） -->
+        <line x1="40" y1="540" x2="920" y2="540" stroke="#2d3142" stroke-opacity="0.10" stroke-width="0.8"/>
+        <text x="40" y="556" fill="#4f5d75" font-size="8" font-family="'Geist Mono', ui-monospace, monospace" letter-spacing="0.18em">LEGEND</text>
+
+        <rect x="40" y="568" width="14" height="10" rx="2" fill="#2d3142" fill-opacity="0.05" stroke="#4f5d75" stroke-width="1"/>
+        <text x="60" y="577" fill="#4f5d75" font-size="12" font-weight="500" font-family="'Geist', 'PingFang SC', 'Noto Sans SC', 'Microsoft YaHei', sans-serif">时钟信号</text>
+
+        <rect x="168" y="568" width="14" height="10" rx="2" fill="#bf4520" fill-opacity="0.08" stroke="#bf4520" stroke-width="1"/>
+        <text x="188" y="577" fill="#4f5d75" font-size="12" font-weight="500" font-family="'Geist', 'PingFang SC', 'Noto Sans SC', 'Microsoft YaHei', sans-serif">PLL 倍频</text>
+
+        <rect x="296" y="568" width="14" height="10" rx="2" fill="#ffffff" stroke="#2d3142" stroke-width="1"/>
+        <text x="316" y="577" fill="#4f5d75" font-size="12" font-weight="500" font-family="'Geist', 'PingFang SC', 'Noto Sans SC', 'Microsoft YaHei', sans-serif">数据通路</text>
+
+        <line x1="424" y1="573" x2="452" y2="573" stroke="#4f5d75" stroke-width="1.2" marker-end="url(#clock-chain-arrow)"/>
+        <text x="460" y="577" fill="#4f5d75" font-size="12" font-weight="500" font-family="'Geist', 'PingFang SC', 'Noto Sans SC', 'Microsoft YaHei', sans-serif">默认链路</text>
+      </svg>
